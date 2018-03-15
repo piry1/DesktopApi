@@ -20,7 +20,7 @@ namespace DesktopApi.Crawler
             dataStorage.Elems.Where(x => !x.Exist())
                 .ToList().ForEach(i =>
                 {
-                    Console.WriteLine("removed: " + i.Name);
+                    Console.WriteLine("remove: " + i.Name);
                     dataStorage.Elems.Remove(i);
                 });
         }
@@ -34,7 +34,7 @@ namespace DesktopApi.Crawler
             {
                 if (File.GetAttributes(x.Path) == FileAttributes.Hidden || dataStorage.Elems.Contains(x)) return;
                 dataStorage.Elems.Add(x);
-                Console.WriteLine("added: " + x.Name);
+                Console.WriteLine("add: " + x.Name);
             });
         }
     }

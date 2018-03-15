@@ -17,8 +17,11 @@ namespace DesktopApi
 
             FlatFileDataStorage<Elem> desktop = new FlatFileDataStorage<Elem>("desktop.json");
             DesktopCrawler crawler = new DesktopCrawler();
-            crawler.Crwal(desktop);
+            DirectoryMonitor directoryMonitor = new DirectoryMonitor(desktop);
 
+            crawler.Crwal(desktop);
+            directoryMonitor.StartMonitoring();
+            
 
             Console.WriteLine("End");
 
