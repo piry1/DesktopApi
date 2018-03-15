@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DesktopApi.Crawler
 {
-    internal class DirectoryMonitor
+    public class DirectoryMonitor
     {
         private readonly string[] _paths;
         private static readonly Dictionary<string, bool> Changed = new Dictionary<string, bool>();
