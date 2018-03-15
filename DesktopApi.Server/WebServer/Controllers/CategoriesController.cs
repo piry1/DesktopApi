@@ -28,7 +28,7 @@ namespace DesktopApi.Server.WebServer.Controllers
                 foreach (var elem in Desktop.Data.Elems)
                     if (elem.Id == id)
                         elem.Category = value;
-
+                Desktop.Data.Serialize();
                 DirectoryMonitor.SetChanged();
             }
             catch (Exception e)
@@ -45,6 +45,7 @@ namespace DesktopApi.Server.WebServer.Controllers
                 foreach (var elem in Desktop.Data.Elems)
                     if (elem.Category == oldValue)
                         elem.Category = newValue;
+                Desktop.Data.Serialize();
             }
             catch (Exception e)
             {
