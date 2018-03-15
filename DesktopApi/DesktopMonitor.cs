@@ -6,6 +6,9 @@ namespace DesktopApi
 {
     public class DesktopMonitor
     {
+        /// <summary>
+        /// List of elements that are displayed on desktop
+        /// </summary>
         public FlatFileDataStorage<Elem> Data { get; } = new FlatFileDataStorage<Elem>("desktop.json");
 
         private readonly DesktopCrawler _crawler = new DesktopCrawler();
@@ -15,6 +18,9 @@ namespace DesktopApi
             Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory)
         };
 
+        /// <summary>
+        /// Monitors desktop files and directories
+        /// </summary>
         public DesktopMonitor()
         {
             _crawler.Crwal(Data, _paths);
