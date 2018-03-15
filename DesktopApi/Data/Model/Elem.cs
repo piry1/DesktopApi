@@ -1,9 +1,8 @@
 ﻿using System.IO;
-using DesktopApi.Data.Model.Interfaces;
 
 namespace DesktopApi.Data.Model
 {
-    public class Elem : IElem
+    public class Elem
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

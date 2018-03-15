@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DesktopApi.Data.Model;
 
 namespace DesktopApi
 {
@@ -11,6 +12,9 @@ namespace DesktopApi
         private static void Main()
         {
             Console.WriteLine("Start");
+
+            Console.WriteLine("End");
+
             Console.ReadLine();
         }
     }

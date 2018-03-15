@@ -46,10 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Model\DataStorage.cs" />
+    <Compile Include="Data\Model\FlatFileDataStorage.cs" />
     <Compile Include="Data\Model\Elem.cs" />
-    <Compile Include="Data\Model\Interfaces\IDataStorage.cs" />
-    <Compile Include="Data\Model\Interfaces\IElem.cs" />
     <Compile Include="Data\Model\PathType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Crawler\" />
+    <Folder Include="Data\Model\Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
