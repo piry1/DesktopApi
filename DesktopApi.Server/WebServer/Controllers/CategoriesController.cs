@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DesktopApi.Crawler;
 using static DesktopApi.Server.Database;
 
 namespace DesktopApi.Server.WebServer.Controllers
@@ -20,6 +21,22 @@ namespace DesktopApi.Server.WebServer.Controllers
             return HttpResponse.ReturnJson(categories);
         }
 
+        public HttpResponse RenameById(int id, string value)
+        {
+            try
+            {
+                foreach (var elem in Desktop.Data.Elems)
+                    if (elem.Id == id)
+                        elem.Category = value;
+
+                DirectoryMonitor.SetChanged();
+            }
+            catch (Exception e)
+            {
+                return HttpResponse.ReturnJson(e);
+            }
+            return HttpResponse.ReturnJson("OK");
+        }
 
         public HttpResponse Rename(string oldValue, string newValue)
         {

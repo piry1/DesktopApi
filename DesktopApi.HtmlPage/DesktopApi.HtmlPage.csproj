@@ -8,15 +8,11 @@
     <Content Include="WallpaperApplication\back\clock.html" />
     <Content Include="WallpaperApplication\back\clock2.html" />
     <Content Include="WallpaperApplication\back\index.html" />
-    <Content Include="WallpaperApplication\css\animate.min.css" />
     <Content Include="WallpaperApplication\css\app.css" />
-    <Content Include="WallpaperApplication\css\bootstrap.min.css" />
     <Content Include="WallpaperApplication\css\font-awesome\css\font-awesome.css" />
     <Content Include="WallpaperApplication\css\font-awesome\css\font-awesome.min.css" />
     <Content Include="WallpaperApplication\css\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="WallpaperApplication\css\font-awesome\HELP-US-OUT.txt" />
-    <Content Include="WallpaperApplication\css\font.lora.css" />
-    <Content Include="WallpaperApplication\css\font.opensans.css" />
     <Content Include="WallpaperApplication\img\bg2.jpg" />
     <Content Include="WallpaperApplication\img\bg4.jpg" />
     <Content Include="WallpaperApplication\img\bg4.png" />
@@ -27,13 +23,7 @@
     <Content Include="WallpaperApplication\img\bg9.jpg" />
     <Content Include="WallpaperApplication\img\mandala_anelie-wallpaper-1920x1080.jpg" />
     <Content Include="WallpaperApplication\Index.html" />
-    <Content Include="WallpaperApplication\js\angular.min.js" />
-    <Content Include="WallpaperApplication\js\anime.min.js" />
     <Content Include="WallpaperApplication\js\app.js" />
-    <Content Include="WallpaperApplication\js\bootstrap.min.js" />
-    <Content Include="WallpaperApplication\js\fire.js" />
-    <Content Include="WallpaperApplication\js\font-awesome.js" />
-    <Content Include="WallpaperApplication\js\jquery.min.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="WallpaperApplication\css\font-awesome\fonts\fontawesome-webfont.eot" />

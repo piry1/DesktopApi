@@ -1,10 +1,10 @@
 var app = angular.module("myApp", []);
 
-app.controller('myCtrl', function ($scope, $http, $interval) {
+app.controller("myCtrl", function ($scope, $http, $interval) {
 
-    var StartAnimation = 'bounceInDown';
-    var port = 5432;
-    var ApiUrl = 'http://localhost:' + port + '/';
+    var startAnimation = 'bounceInDown';
+    var port = 5001;
+    var apiUrl = 'http://localhost:' + port + '/';
     var start = true; // start of application
     var lastRequestUrl = "";
     var desktopId = Math.random();
@@ -16,7 +16,7 @@ app.controller('myCtrl', function ($scope, $http, $interval) {
 
     // Get all categories names
     $scope.GetCateegories = function () {
-        $http.get(ApiUrl + 'categories/get')
+        $http.get(apiUrl + 'categories/get')
             .then(function (response) {
                 $scope.categories = response.data;
                 console.log($scope.categories);
@@ -25,7 +25,7 @@ app.controller('myCtrl', function ($scope, $http, $interval) {
     }
 
     $scope.ChangeCategory = function (id, value) {
-        $http.get(ApiUrl + 'categories/renamebyid/' + id + '/' + value)
+        $http.get(apiUrl + 'categories/renamebyid/' + id + '/' + value)
             .then(function (response) {
                 console.log(response.data);
             });
@@ -35,14 +35,14 @@ app.controller('myCtrl', function ($scope, $http, $interval) {
     $scope.GetElems = function (url) {
         $http.get(url)
             .then(function (response) {
-                $scope.elems = response.data.PathElems;
+                $scope.elems = response.data;
                 console.log($scope.elems);
             });
     }
 
     // GET category from API
     $scope.GetCateegory = function ($event, catName) {
-        lastRequestUrl = ApiUrl + 'desktop/get/' + catName;
+        lastRequestUrl = apiUrl + 'desktop/get/' + catName;
         $scope.GetElems(lastRequestUrl);
 
         if ($event != null)
@@ -55,7 +55,7 @@ app.controller('myCtrl', function ($scope, $http, $interval) {
         var animationName = 'swing';
 
         if (enable) {
-            $(icon).removeClass(StartAnimation);
+            $(icon).removeClass(startAnimation);
             $(icon).addClass(animationName);
             var btn = $(icon).children()[1];
             $(btn).removeClass("hidden");
@@ -70,12 +70,12 @@ app.controller('myCtrl', function ($scope, $http, $interval) {
 
     // Show Context menu
     $scope.ContextMenu = function (e, id) {
-        $http.get(ApiUrl + 'file/openmenu/' + id);
+        $http.get(apiUrl + 'file/openmenu/' + id);
     }
 
     // closing context menu
     $scope.CloseContentMenu = function () {
-        $http.get(ApiUrl + 'file/closemenu');
+        $http.get(apiUrl + 'file/closemenu');
         console.log("context menu closing");
         // sortable();
     }
@@ -84,7 +84,7 @@ app.controller('myCtrl', function ($scope, $http, $interval) {
     $scope.Start = function ($event, id) {
         $scope.CloseContentMenu();
         if (!$scope.preventStart && $scope.clickInterval < 50)
-            $http.get(ApiUrl + 'file/start/' + id);
+            $http.get(apiUrl + 'file/start/' + id);
         $('.icon-div').removeClass("active");
         $($event.currentTarget).addClass("active");
         $scope.clickInterval = 0;
@@ -99,7 +99,7 @@ app.controller('myCtrl', function ($scope, $http, $interval) {
     $scope.ToggleApp = function () {
         $scope.show = !$scope.show;
         if ($scope.show == true)
-            $('.icon-div').addClass(StartAnimation);
+            $('.icon-div').addClass(startAnimation);
         if (start) {
             start = false;
             // console.log();
@@ -109,7 +109,7 @@ app.controller('myCtrl', function ($scope, $http, $interval) {
 
     // check if theare are any changes on desktop and load data if theare are
     $scope.Changed = function () {
-        $http.get(ApiUrl + 'desktop/changed/' + desktopId)
+        $http.get(apiUrl + 'desktop/changed/' + desktopId)
             .then(function (response) {
                 console.log(response.data);
                 if (response.data == "true") {
@@ -145,13 +145,13 @@ app.controller('myCtrl', function ($scope, $http, $interval) {
     }
 
     $scope.HideIcons = function (param) {
-        $http.get(ApiUrl + 'desktop/icons/' + param);
+        $http.get(apiUrl + 'desktop/icons/' + param);
     }
 
     // Start at aplication start and load all data
     $scope.OnStart = function () {
         // get categories
-        $http.get(ApiUrl + 'categories/get')
+        $http.get(apiUrl + 'categories/get')
             .then(function (response) {
                 $scope.categories = response.data;
                 // get first category files
