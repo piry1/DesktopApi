@@ -53,6 +53,7 @@
     <Compile Include="Data\Model\FlatFileDataStorage.cs" />
     <Compile Include="Data\Model\Elem.cs" />
     <Compile Include="Data\Model\PathType.cs" />
+    <Compile Include="DesktopMonitor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -14,17 +14,8 @@ namespace DesktopApi
         private static void Main()
         {
             Console.WriteLine("Start");
-
-            FlatFileDataStorage<Elem> desktop = new FlatFileDataStorage<Elem>("desktop.json");
-            DesktopCrawler crawler = new DesktopCrawler();
-            DirectoryMonitor directoryMonitor = new DirectoryMonitor(desktop);
-
-            crawler.Crwal(desktop);
-            directoryMonitor.StartMonitoring();
-            
-
+            DesktopMonitor desktopMonitor = new DesktopMonitor();
             Console.WriteLine("End");
-
             Console.ReadLine();
         }
     }

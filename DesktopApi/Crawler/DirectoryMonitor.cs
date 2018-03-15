@@ -7,22 +7,21 @@ using DesktopApi.Data.Model;
 
 namespace DesktopApi.Crawler
 {
-    class DirectoryMonitor
+    internal class DirectoryMonitor
     {
-        private readonly string _privatePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        private readonly string _publicPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
-        private static Dictionary<string, bool> changed = new Dictionary<string, bool>();
-        private FlatFileDataStorage<Elem> _dataStorage;
+        private readonly string[] _paths;
+        private static readonly Dictionary<string, bool> Changed = new Dictionary<string, bool>();
+        private readonly FlatFileDataStorage<Elem> _dataStorage;
 
-        public DirectoryMonitor(FlatFileDataStorage<Elem> dataStorage)
+        internal DirectoryMonitor(FlatFileDataStorage<Elem> dataStorage, IEnumerable<string> paths)
         {
             _dataStorage = dataStorage;
+            _paths = paths.ToArray();
         }
 
-        public void StartMonitoring()
-        {
-            string[] paths = { _privatePath, _publicPath };
-            foreach (var path in paths)
+        internal void StartMonitoring()
+        {   
+            foreach (var path in _paths)
             {
                 var fsw = new FileSystemWatcher(path)
                 {
@@ -72,23 +71,23 @@ namespace DesktopApi.Crawler
         public static void SetChanged()
         {
             var keys = new List<string>();
-            foreach (var k in changed.Keys)
+            foreach (var k in Changed.Keys)
                 keys.Add(k);
             foreach (var x in keys)
-                changed[x] = true;
+                Changed[x] = true;
         }
 
         public static bool GetChanged(string key)
         {
             bool result = true;
-            if (changed.ContainsKey(key))
+            if (Changed.ContainsKey(key))
             {
-                result = changed[key];
-                changed[key] = false;
+                result = Changed[key];
+                Changed[key] = false;
             }
             else
             {
-                changed.Add(key, false);
+                Changed.Add(key, false);
             }
             return result;
         }

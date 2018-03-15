@@ -13,17 +13,17 @@ namespace DesktopApi.Crawler
         private const string NonCategoryNameKey = "none";
         private const string DirectoryKey = "directory";
 
-        public CategoryManager()
+        internal CategoryManager()
         {
             if (_categories.Elems.Count == 0)
                 InitCategories();
         }
 
-        public string GetFileCategory(string path)
+        internal string GetFileCategory(string path)
         {
             var attr = File.GetAttributes(path);
             if (attr.HasFlag(FileAttributes.Directory))
-                return "directory";      
+                return "directory";
             var ext = Path.GetExtension(path);
             var category = _categories.Elems.Where(x => x.Key == ext).ToList();
             return category.Count != 0 ? category.First().Value : "none";

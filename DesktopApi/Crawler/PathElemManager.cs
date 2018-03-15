@@ -9,17 +9,12 @@ namespace DesktopApi.Crawler
     internal class PathElemManager
     {
         private readonly CategoryManager _cm = new CategoryManager();
-        private readonly string[] _paths =
-        {
-            Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-            Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory)
-        };
 
-        internal List<Elem> GetAllPaths()
+        internal List<Elem> GetAllPaths(string[] paths)
         {
             var elems = new List<Elem>();
 
-            foreach (var path in _paths)
+            foreach (var path in paths)
             {
                 FillElemsList(Directory.GetFiles(path), elems);
                 FillElemsList(Directory.GetDirectories(path), elems);
@@ -59,7 +54,7 @@ namespace DesktopApi.Crawler
                 .HasFlag(FileAttributes.Directory)
                 ? PathType.Directory
                 : PathType.File;
-        } 
+        }
 
     }
 }

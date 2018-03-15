@@ -1,18 +1,19 @@
 ﻿using DesktopApi.Data.Model;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace DesktopApi.Crawler
 {
-    public class DesktopCrawler
+    internal class DesktopCrawler
     {
-        internal void Crwal(FlatFileDataStorage<Elem> dataStorage)
+        internal void Crwal(FlatFileDataStorage<Elem> dataStorage, IEnumerable<string> paths)
         {
-            Console.WriteLine("Crawler Start\n");
+            Console.WriteLine("*** crawler START ***");
             RemoveNotExistingPaths(dataStorage);
-            AddNewPaths(dataStorage);
-            Console.WriteLine("Crawler End\n");
+            AddNewPaths(dataStorage, paths.ToArray());
+            Console.WriteLine("*** crawler END ***");
         }
 
         private void RemoveNotExistingPaths(FlatFileDataStorage<Elem> dataStorage)
@@ -25,10 +26,10 @@ namespace DesktopApi.Crawler
                 });
         }
 
-        private void AddNewPaths(FlatFileDataStorage<Elem> dataStorage)
+        private void AddNewPaths(FlatFileDataStorage<Elem> dataStorage, string[] paths)
         {
             var pm = new PathElemManager();
-            var elems = pm.GetAllPaths();
+            var elems = pm.GetAllPaths(paths);
 
             elems.ForEach(x =>
             {

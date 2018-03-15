@@ -9,7 +9,7 @@ namespace DesktopApi.Data.Model
 {
     public class FlatFileDataStorage<T>
     {
-        private readonly string _fileDir = @"DataStorages/";
+        private const string FileDir = @"DataStorages/";
         private readonly string _fileName;
 
         public ObservableCollection<T> Elems { get; set; }
@@ -40,19 +40,19 @@ namespace DesktopApi.Data.Model
         public void Serialize()
         {
             var jsonElems = JsonConvert.SerializeObject(Elems);
-            File.WriteAllText(_fileDir + _fileName, jsonElems);
+            File.WriteAllText(FileDir + _fileName, jsonElems);
         }
 
         public void Deserialize()
         {
-            Elems = JsonConvert.DeserializeObject<ObservableCollection<T>>(File.ReadAllText(_fileDir + _fileName));
+            Elems = JsonConvert.DeserializeObject<ObservableCollection<T>>(File.ReadAllText(FileDir + _fileName));
         }
 
         private bool FileExist()
         {
-            if (!Directory.Exists(_fileDir))
-                Directory.CreateDirectory(_fileDir);
-            return File.Exists(_fileDir + _fileName);
+            if (!Directory.Exists(FileDir))
+                Directory.CreateDirectory(FileDir);
+            return File.Exists(FileDir + _fileName);
         }
     }
 }
