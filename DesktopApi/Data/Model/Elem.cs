@@ -19,5 +19,15 @@ namespace DesktopApi.Data.Model
                 ? Directory.Exists(Path)
                 : File.Exists(Path);
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Elem elem && this.Path.Equals(elem.Path);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Path.GetHashCode();
+        }
     }
 }

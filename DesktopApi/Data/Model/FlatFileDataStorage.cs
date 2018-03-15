@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
-using DesktopApi.Data.Model.Interfaces;
 
 namespace DesktopApi.Data.Model
 {
@@ -46,7 +45,7 @@ namespace DesktopApi.Data.Model
 
         public void Deserialize()
         {
-            Elems = JsonConvert.DeserializeObject<ObservableCollection<T>>(_fileDir + _fileName);
+            Elems = JsonConvert.DeserializeObject<ObservableCollection<T>>(File.ReadAllText(_fileDir + _fileName));
         }
 
         private bool FileExist()

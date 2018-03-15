@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Crawler\CategoryManager.cs" />
+    <Compile Include="Crawler\DesktopCrawler.cs" />
+    <Compile Include="Crawler\PathElemManager.cs" />
     <Compile Include="Data\Model\FlatFileDataStorage.cs" />
     <Compile Include="Data\Model\Elem.cs" />
     <Compile Include="Data\Model\PathType.cs" />
@@ -56,7 +59,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Crawler\" />
     <Folder Include="Data\Model\Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,58 +1,66 @@
-﻿using System;
+﻿using DesktopApi.Data.Model;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DesktopApi.Data.Model;
 using System.IO;
+using System.Linq;
 
 namespace DesktopApi.Crawler
 {
     internal class PathElemManager
     {
-        private string publicPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
-        private string privatePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        private CategoryManager cm = new CategoryManager();
 
-        internal List<PathElem> GetAllPaths()
+        private readonly string[] _paths =
         {
-            return GetFiles();
-        }
+            Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+            Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory)
+        };
 
-        private List<PathElem> GetFiles()
+        private readonly CategoryManager _cm = new CategoryManager();
+
+        internal List<Elem> GetAllPaths()
         {
-            List<PathElem> elems = new List<PathElem>();
-            var f = Directory.GetFiles(privatePath);
-            foreach (var file in f)
-                elems.Add(new PathElem() { Path = file, Name = Path.GetFileNameWithoutExtension(file), Type = PathElem.PathType.File, Category = cm.GetFileCategory(file) });
+            var elems = new List<Elem>();
 
-            f = Directory.GetFiles(publicPath);
-            foreach (var file in f)
-                elems.Add(new PathElem() { Path = file, Name = Path.GetFileNameWithoutExtension(file), Type = PathElem.PathType.File, Category = cm.GetFileCategory(file) });
-
-            var d = Directory.GetDirectories(privatePath);
-            foreach (var dir in d)
-                elems.Add(new PathElem() { Path = dir, Name = Path.GetFileNameWithoutExtension(dir), Type = PathElem.PathType.Directory, Category = cm.GetFileCategory(dir) });
-
-            d = Directory.GetDirectories(publicPath);
-            foreach (var dir in d)
-                elems.Add(new PathElem() { Path = dir, Name = Path.GetFileNameWithoutExtension(dir), Type = PathElem.PathType.Directory, Category = cm.GetFileCategory(dir) });
+            foreach (var path in _paths)
+            {
+                FillElemsList(Directory.GetFiles(path), elems);
+                FillElemsList(Directory.GetDirectories(path), elems);
+            }
 
             return elems;
         }
 
-        public PathElem GetPathElem(string path)
+        private void FillElemsList(string[] paths, List<Elem> elems)
         {
-            FileAttributes attr = File.GetAttributes(path);
-            PathElem pe = new PathElem()
+            elems.AddRange(paths.Select(file => new Elem
+            {
+                Id = elems.Count,
+                Path = file,
+                Name = Path.GetFileNameWithoutExtension(file),
+                Type = GetPathType(file),
+                Category = _cm.GetFileCategory(file)
+            }));
+        }
+
+        private PathType GetPathType(string path)
+        {
+            return File.GetAttributes(path)
+                .HasFlag(FileAttributes.Directory)
+                ? PathType.Directory
+                : PathType.File;
+        }
+
+        internal Elem GetPathElem(string path)
+        {
+            var elem = new Elem
             {
                 Path = path,
                 Name = Path.GetFileNameWithoutExtension(path),
-                Category = cm.GetFileCategory(path),
-                Type = attr.HasFlag(FileAttributes.Directory) ? PathElem.PathType.Directory : PathElem.PathType.File
+                Category = _cm.GetFileCategory(path),
+                Type = GetPathType(path)
             };
 
-            return pe;
+            return elem;
         }
 
     }
