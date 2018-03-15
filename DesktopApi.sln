@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopApi", "DesktopApi\De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopApi.Server", "DesktopApi.Server\DesktopApi.Server.csproj", "{3D9F5F42-4FC1-4E92-BED8-7D8B47DABE04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopApi.HtmlPage", "DesktopApi.HtmlPage\DesktopApi.HtmlPage.csproj", "{E0813652-4A08-495F-AEC1-27E76E03FE1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,9 @@ Global
 		{3D9F5F42-4FC1-4E92-BED8-7D8B47DABE04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D9F5F42-4FC1-4E92-BED8-7D8B47DABE04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D9F5F42-4FC1-4E92-BED8-7D8B47DABE04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0813652-4A08-495F-AEC1-27E76E03FE1C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E0813652-4A08-495F-AEC1-27E76E03FE1C}.Release|Any CPU.ActiveCfg = Debug|x86
+		{E0813652-4A08-495F-AEC1-27E76E03FE1C}.Release|Any CPU.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

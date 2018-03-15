@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{E0813652-4A08-495F-AEC1-27E76E03FE1C}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="WallpaperApplication\back\clock.html" />
+    <Content Include="WallpaperApplication\back\clock2.html" />
+    <Content Include="WallpaperApplication\back\index.html" />
+    <Content Include="WallpaperApplication\css\animate.min.css" />
+    <Content Include="WallpaperApplication\css\app.css" />
+    <Content Include="WallpaperApplication\css\bootstrap.min.css" />
+    <Content Include="WallpaperApplication\css\font-awesome\css\font-awesome.css" />
+    <Content Include="WallpaperApplication\css\font-awesome\css\font-awesome.min.css" />
+    <Content Include="WallpaperApplication\css\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="WallpaperApplication\css\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="WallpaperApplication\css\font.lora.css" />
+    <Content Include="WallpaperApplication\css\font.opensans.css" />
+    <Content Include="WallpaperApplication\img\bg2.jpg" />
+    <Content Include="WallpaperApplication\img\bg4.jpg" />
+    <Content Include="WallpaperApplication\img\bg4.png" />
+    <Content Include="WallpaperApplication\img\bg5.jpg" />
+    <Content Include="WallpaperApplication\img\bg6.jpg" />
+    <Content Include="WallpaperApplication\img\bg7.jpg" />
+    <Content Include="WallpaperApplication\img\bg8.jpg" />
+    <Content Include="WallpaperApplication\img\bg9.jpg" />
+    <Content Include="WallpaperApplication\img\mandala_anelie-wallpaper-1920x1080.jpg" />
+    <Content Include="WallpaperApplication\Index.html" />
+    <Content Include="WallpaperApplication\js\angular.min.js" />
+    <Content Include="WallpaperApplication\js\anime.min.js" />
+    <Content Include="WallpaperApplication\js\app.js" />
+    <Content Include="WallpaperApplication\js\bootstrap.min.js" />
+    <Content Include="WallpaperApplication\js\fire.js" />
+    <Content Include="WallpaperApplication\js\font-awesome.js" />
+    <Content Include="WallpaperApplication\js\jquery.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="WallpaperApplication\css\font-awesome\fonts\fontawesome-webfont.eot" />
+    <None Include="WallpaperApplication\css\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <None Include="WallpaperApplication\css\font-awesome\fonts\fontawesome-webfont.woff" />
+    <None Include="WallpaperApplication\css\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="WallpaperApplication\css\font-awesome\fonts\FontAwesome.otf" />
+    <None Include="WallpaperApplication\css\font-awesome\less\animated.less" />
+    <None Include="WallpaperApplication\css\font-awesome\less\bordered-pulled.less" />
+    <None Include="WallpaperApplication\css\font-awesome\less\core.less" />
+    <None Include="WallpaperApplication\css\font-awesome\less\fixed-width.less" />
+    <None Include="WallpaperApplication\css\font-awesome\less\font-awesome.less" />
+    <None Include="WallpaperApplication\css\font-awesome\less\icons.less" />
+    <None Include="WallpaperApplication\css\font-awesome\less\larger.less" />
+    <None Include="WallpaperApplication\css\font-awesome\less\list.less" />
+    <None Include="WallpaperApplication\css\font-awesome\less\mixins.less" />
+    <None Include="WallpaperApplication\css\font-awesome\less\path.less" />
+    <None Include="WallpaperApplication\css\font-awesome\less\rotated-flipped.less" />
+    <None Include="WallpaperApplication\css\font-awesome\less\screen-reader.less" />
+    <None Include="WallpaperApplication\css\font-awesome\less\stacked.less" />
+    <None Include="WallpaperApplication\css\font-awesome\less\variables.less" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\font-awesome.scss" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\_animated.scss" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\_bordered-pulled.scss" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\_core.scss" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\_fixed-width.scss" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\_icons.scss" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\_larger.scss" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\_list.scss" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\_mixins.scss" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\_path.scss" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\_rotated-flipped.scss" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\_screen-reader.scss" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\_stacked.scss" />
+    <None Include="WallpaperApplication\css\font-awesome\scss\_variables.scss" />
+  </ItemGroup>
+</Project>
