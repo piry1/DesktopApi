@@ -11,7 +11,7 @@ namespace DesktopApi.Server.WebServer
         private static readonly HttpListener HttpListener = new HttpListener();
         private static Thread _responseThread;
         private static readonly Router Router = new Router();
-        public static int Port { get; } = 5432;
+        public static int Port { get; } = 5001;
         public static string Url { get; } = $"http://localhost:{Port}/";
 
         public static void StartServer()
@@ -20,8 +20,8 @@ namespace DesktopApi.Server.WebServer
 
             try
             {
-                //_httpListener.Prefixes.Add(Url);
-                HttpListener.Prefixes.Add("http://*:5432/");
+                HttpListener.Prefixes.Add(Url);
+               // HttpListener.Prefixes.Add("http://*:5432/");
                 HttpListener.Start();
             }
             catch (Exception e)

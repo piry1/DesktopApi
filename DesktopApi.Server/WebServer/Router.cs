@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using DesktopApi.Server.WebServer.Controllers;
 
 namespace DesktopApi.Server.WebServer
 {
     internal class Router
     {
-        //private DesktopController desktop = new DesktopController();
-        //private IconController icon = new IconController();
-        //private FileController file = new FileController();
-        //private DatabaseController database = new DatabaseController();
-        //private PageController page = new PageController();
-        //private CategoriesController categories = new CategoriesController();
+        private DesktopController desktop = new DesktopController();
+        private IconController icon = new IconController();
+        private FileController file = new FileController();
+        private DatabaseController database = new DatabaseController();
+        private PageController page = new PageController();
+        private CategoriesController categories = new CategoriesController();
 
         public HttpResponse RouteApiMethod(Uri url)
         {

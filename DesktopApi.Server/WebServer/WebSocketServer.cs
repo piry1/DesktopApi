@@ -20,7 +20,7 @@ namespace DesktopApi.Server.WebServer
 
         public void Start()
         {
-            _serverSocket = new TcpListener(IPAddress.Any, 4000);
+            _serverSocket = new TcpListener(IPAddress.Any, 5000);
             _serverSocket.Start();
             _responseThread = new Thread(ResponseThread);
             _responseThread.Start();
