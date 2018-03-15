@@ -1,9 +1,8 @@
-﻿using System;
+﻿using DesktopApi.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using DesktopApi.Data.Model;
 
 namespace DesktopApi.Crawler
 {
