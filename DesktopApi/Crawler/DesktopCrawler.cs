@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DesktopApi.Data.Model;
+using System;
 using System.IO;
 using System.Linq;
-using DesktopApi.Data.Model;
 
 namespace DesktopApi.Crawler
 {
@@ -18,10 +18,10 @@ namespace DesktopApi.Crawler
         private void RemoveNotExistingPaths(FlatFileDataStorage<Elem> dataStorage)
         {
             dataStorage.Elems.Where(x => !x.Exist())
-                .ToList().All(i =>
+                .ToList().ForEach(i =>
                 {
                     Console.WriteLine("removed: " + i.Name);
-                    return dataStorage.Elems.Remove(i);
+                    dataStorage.Elems.Remove(i);
                 });
         }
 

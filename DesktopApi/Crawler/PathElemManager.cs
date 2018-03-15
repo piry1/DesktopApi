@@ -8,14 +8,12 @@ namespace DesktopApi.Crawler
 {
     internal class PathElemManager
     {
-
+        private readonly CategoryManager _cm = new CategoryManager();
         private readonly string[] _paths =
         {
             Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
             Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory)
         };
-
-        private readonly CategoryManager _cm = new CategoryManager();
 
         internal List<Elem> GetAllPaths()
         {
@@ -28,6 +26,19 @@ namespace DesktopApi.Crawler
             }
 
             return elems;
+        }
+
+        internal Elem GetPathElem(string path)
+        {
+            var elem = new Elem
+            {
+                Path = path,
+                Name = Path.GetFileNameWithoutExtension(path),
+                Category = _cm.GetFileCategory(path),
+                Type = GetPathType(path)
+            };
+
+            return elem;
         }
 
         private void FillElemsList(string[] paths, List<Elem> elems)
@@ -48,20 +59,7 @@ namespace DesktopApi.Crawler
                 .HasFlag(FileAttributes.Directory)
                 ? PathType.Directory
                 : PathType.File;
-        }
-
-        internal Elem GetPathElem(string path)
-        {
-            var elem = new Elem
-            {
-                Path = path,
-                Name = Path.GetFileNameWithoutExtension(path),
-                Category = _cm.GetFileCategory(path),
-                Type = GetPathType(path)
-            };
-
-            return elem;
-        }
+        } 
 
     }
 }
