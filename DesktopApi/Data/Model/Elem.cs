@@ -1,8 +1,9 @@
 ﻿using System.IO;
+using DesktopApi.Data.Model.Interfaces;
 
 namespace DesktopApi.Data.Model
 {
-    public class Elem
+    public class Elem : IElem
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -10,8 +11,8 @@ namespace DesktopApi.Data.Model
         public string Icon { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;
         public PathType Type { get; set; }
-
-        public enum PathType { File, Directory }
+        public uint UseCount { get; set; } = 0;
+        public bool IsFavourite { get; set; }
 
         public bool Exist()
         {
