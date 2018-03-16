@@ -19,6 +19,9 @@ namespace DesktopApi.Crawler
         public static string GetIcon(PathType type, string path)
         {
             string iconPath = IconsDirPath + path.GetHashCode() + ".png";
+            if (File.Exists(iconPath))
+                return Path.GetFullPath(iconPath);
+
             Bitmap bitmap = null;
             int tryouts = 0;
 
