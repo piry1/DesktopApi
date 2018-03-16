@@ -13,7 +13,7 @@ namespace DesktopApi.Server.WebServer.Controllers
 {
     internal class FileController
     {
-        static ShellContextMenu _ctxMnu;
+        private static ShellContextMenu _ctxMnu;
 
         #region Get Cursor position on screen
         public static Point GetMousePositionWindowsForms()
@@ -22,21 +22,24 @@ namespace DesktopApi.Server.WebServer.Controllers
             return new Point(point.X, point.Y);
         }
 
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool GetCursorPos(ref Win32Point pt);
+        internal class NativeMethods
+        {
+            [DllImport("user32.dll")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            internal static extern bool GetCursorPos(ref Win32Point pt);
+        }
 
         [StructLayout(LayoutKind.Sequential)]
         internal struct Win32Point
         {
             public Int32 X;
             public Int32 Y;
-        };
+        }
 
         public static Point GetMousePosition()
         {
             var w32Mouse = new Win32Point();
-            GetCursorPos(ref w32Mouse);
+            NativeMethods.GetCursorPos(ref w32Mouse);
             return new Point(w32Mouse.X, w32Mouse.Y);
         }
         #endregion
@@ -47,6 +50,8 @@ namespace DesktopApi.Server.WebServer.Controllers
             try
             {
                 Process.Start(elem.Path);
+                Desktop.Data.Elems[Desktop.Data.Elems.IndexOf(elem)].UseCount++;
+                Desktop.Data.Serialize();
             }
             catch
             {
