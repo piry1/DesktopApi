@@ -61,10 +61,10 @@
 
             <!-- File icons -->
             <div id="context" class="container-fluid" style="text-align: center">
-                <button id={{e.Id}} ng-click="Start($event, e.Id)" ng-mouseenter='IconMouseEnter($event, true)' ng-mouseleave='IconMouseEnter($event, false)'
+                <button id={{e.Id}} ng-dblclick="Start($event, e.Id)" ng-mouseenter='IconMouseEnter($event, true)' ng-mouseleave='IconMouseEnter($event, false)'
                     class="icon-div animated bounceInDown" ng-repeat="e in elems">
                     <img class="img-responsive" ng-src="{{e.Icon}}" alt="{{e.Id}}" style="text-align: center">
-                    <span ng-click="ContextMenu($event, e.Id)" ng-mouseenter='PreventStart(true)' ng-mouseleave='PreventStart(false)' class="btn btn-success con-menu-btn hidden">
+                    <span ng-click="ContextMenu($event, e.Id)" class="btn btn-success con-menu-btn hidden">
                         <i class="fa fa-list" aria-hidden="true"></i>
                     </span>
                     <span>{{e.Name}}</span>
