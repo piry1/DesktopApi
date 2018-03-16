@@ -7,7 +7,7 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
     var ws = new WebSocket("ws://localhost:" + port + "/");
 
     var start = true; // start of application
-    var lastRequestUrl = "";
+    var activeCategory = "";
     var desktopId = Math.random();
 
     $scope.show = false;
@@ -27,7 +27,7 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
         var receivedMsg = evt.data;
         var obj = JSON.parse(receivedMsg);
         $scope.switchControllerResponse(obj);
-      //  console.log(obj); // TO COMMENT 
+        //  console.log(obj); // TO COMMENT 
     };
 
     $scope.switchControllerResponse = function (data) {
@@ -38,8 +38,11 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
             case "desktop":
                 $scope.desktopResponse(data);
                 break;
+            case "notification":
+                $scope.notificationResponse(data);
+                break;
         }
-    }
+    };
 
     $scope.desktopResponse = function (data) {
         switch (data.Method) {
@@ -52,6 +55,17 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
 
     }
 
+    $scope.notificationResponse = function (data) {
+        switch (data.Method) {
+            case "changed":
+                console.log("changed");
+                $scope.GetCateegory(null, activeCategory);
+                break;
+            default:
+        }
+
+    };
+
     $scope.categoriesResponse = function (data) {
         switch (data.Method) {
             case "get":
@@ -62,7 +76,7 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
                 break;
         }
 
-    }
+    };
 
     // Get all categories names
     $scope.GetCateegories = function () {
@@ -76,7 +90,7 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
 
     $scope.GetCateegory = function ($event, catName) {
         sendSocketRequest("desktop", "get", [catName]);
-
+        activeCategory = catName;
         // make category btn active
         if ($event !== null && $event !== undefined)
             toggleNavButtons($event.currentTarget);

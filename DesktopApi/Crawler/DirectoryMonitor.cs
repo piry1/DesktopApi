@@ -9,8 +9,10 @@ namespace DesktopApi.Crawler
     public class DirectoryMonitor
     {
         private readonly string[] _paths;
-        private static readonly Dictionary<string, bool> Changed = new Dictionary<string, bool>();
+        //   private static readonly Dictionary<string, bool> Changed = new Dictionary<string, bool>();
         private readonly FlatFileDataStorage<List<Elem>> _dataStorage;
+
+        public static event EventHandler Changed;
 
         internal DirectoryMonitor(FlatFileDataStorage<List<Elem>> dataStorage, IEnumerable<string> paths)
         {
@@ -41,7 +43,7 @@ namespace DesktopApi.Crawler
             _dataStorage.Elems.Remove(elem);
             Console.WriteLine("remove: " + elem.Name);
             _dataStorage.Serialize();
-            SetChanged();
+            SetChanged(EventArgs.Empty);
         }
 
         private void Fsw_Renamed(object sender, RenamedEventArgs e)
@@ -51,39 +53,21 @@ namespace DesktopApi.Crawler
             _dataStorage.Elems.Add(new Elem(e.FullPath));
             Console.WriteLine($"rename: {e.OldName} => {e.Name}");
             _dataStorage.Serialize();
-            SetChanged();
+            SetChanged(EventArgs.Empty);
         }
 
         private void Fsw_Created(object sender, FileSystemEventArgs e)
-        { 
+        {
             _dataStorage.Elems.Add(new Elem(e.FullPath));
             Console.WriteLine("add: " + e.Name);
             _dataStorage.Serialize();
-            SetChanged();
+            SetChanged(EventArgs.Empty);
         }
 
-        public static void SetChanged()
+        public static void SetChanged(EventArgs e)
         {
-            var keys = new List<string>();
-            foreach (var k in Changed.Keys)
-                keys.Add(k);
-            foreach (var x in keys)
-                Changed[x] = true;
+            Changed?.Invoke(null, e);
         }
 
-        public static bool GetChanged(string key)
-        {
-            bool result = true;
-            if (Changed.ContainsKey(key))
-            {
-                result = Changed[key];
-                Changed[key] = false;
-            }
-            else
-            {
-                Changed.Add(key, false);
-            }
-            return result;
-        }
     }
 }

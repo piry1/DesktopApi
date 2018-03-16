@@ -36,10 +36,10 @@
 </head>
 
 <body>
-   
+
     <iframe id="bg" src="./back/index.html" frameborder="0"></iframe>
     <iframe class="bg" src="./back/clock.html" frameborder="0"></iframe>
-    
+
     <!--<canvas class="fireworks"></canvas>-->
     <div id="app" ng-app="myApp" ng-controller="myCtrl">
 
@@ -54,7 +54,8 @@
             <div id="contextt" class="container-fluid nav-btns" style="text-align: center;">
 
                 <button id='{{category}}' ng-repeat="category in categories" ng-click='GetCateegory( $event, category )' class="btn category btn-sm btn-default btn-auto">{{category}}</button>
-                <button id="hide-btn" ng-click='ToggleApp()' class="btn btn-sm btn-default">hide
+                <button id="hide-btn" ng-click='ToggleApp()' class="btn btn-sm btn-default">
+                    hide
                     <i class="fa fa-arrow-up" aria-hidden="true"></i>
                 </button>
             </div>
@@ -62,7 +63,7 @@
             <!-- File icons -->
             <div id="context" class="container-fluid" style="text-align: center">
                 <button id={{e.Id}} ng-dblclick="Start($event, e.Id)" ng-mouseenter='IconMouseEnter($event, true)' ng-mouseleave='IconMouseEnter($event, false)'
-                    class="icon-div animated bounceInDown" ng-repeat="e in elems">
+                        class="icon-div animated bounceInDown" ng-repeat="e in elems">
                     <img class="img-responsive" ng-src="{{e.Icon}}" alt="{{e.Id}}" style="text-align: center">
                     <span ng-click="ContextMenu($event, e.Id)" class="btn btn-success con-menu-btn hidden">
                         <i class="fa fa-list" aria-hidden="true"></i>

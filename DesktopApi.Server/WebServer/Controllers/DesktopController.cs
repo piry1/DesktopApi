@@ -18,10 +18,5 @@ namespace DesktopApi.Server.WebServer.Controllers
             return desktop;
         }
 
-        public object Changed(string key)
-        {
-            return DirectoryMonitor.GetChanged(key);
-        }
-
     }
 }

@@ -21,7 +21,7 @@ namespace DesktopApi.Server.WebServer.Controllers
             return categories;
         }
 
-        public object RenameById(int id, string value)
+        public object RenameById(int id, string value, int socketId)
         {
             try
             {
@@ -29,7 +29,8 @@ namespace DesktopApi.Server.WebServer.Controllers
                     if (elem.Id == id)
                         elem.Category = value;
                 Desktop.Data.Serialize();
-                DirectoryMonitor.SetChanged();
+                
+                DirectoryMonitor.SetChanged(new DesktopChangedEventArgs(socketId));
             }
             catch (Exception e)
             {

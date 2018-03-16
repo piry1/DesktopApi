@@ -28,8 +28,15 @@ namespace DesktopApi.Server.WebServer
             return RouteApiMethod(controllerName, methodName, strParams);
         }
 
-        public object RouteApiMethod(Request request)
+        public object RouteApiMethod(Request request, int socketId)
         {
+            if (request.Method == "renamebyid")
+            {
+                var tmp = request.Params.ToList();
+                tmp.Add(socketId.ToString());
+                request.Params = tmp.ToArray();
+            }
+
             return RouteApiMethod(request.Controller, request.Method, request.Params);
         }
 

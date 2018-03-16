@@ -8,6 +8,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using DesktopApi.Crawler;
 
 namespace DesktopApi.Server.WebServer
 {
@@ -16,6 +17,7 @@ namespace DesktopApi.Server.WebServer
         private TcpListener _serverSocket;
         private Thread _responseThread;
         private readonly List<Task> _recivingTasks = new List<Task>();
+        private readonly List<WebSocket> _sockets = new List<WebSocket>();
         private readonly Router _router = new Router();
         private int _port;
 
@@ -27,6 +29,7 @@ namespace DesktopApi.Server.WebServer
             _responseThread = new Thread(ResponseThread);
             _responseThread.Start();
             Console.WriteLine($"Websocket server started at {_port}");
+            DirectoryMonitor.Changed += NotifyAboutChanges;
             return _responseThread;
         }
 
@@ -37,6 +40,32 @@ namespace DesktopApi.Server.WebServer
             _recivingTasks.Clear();
             _responseThread.Abort();
         }
+
+        private async void NotifyAboutChanges(object s, EventArgs e)
+        {
+            var args = e as DesktopChangedEventArgs;
+
+            var notification = new SocketResponse
+            {
+                Controller = "notification",
+                Method = "changed",
+                Response = true
+            };
+
+            var message = JsonConvert.SerializeObject(notification);
+            foreach (var webSocket in _sockets)
+            {
+                if (args != null)
+                {
+                    if (webSocket.GetHashCode() != args.ChangingEntity)
+                        await Send(webSocket, message);
+                }
+                else
+                    await Send(webSocket, message);
+
+            }
+        }
+
 
         private void ResponseThread()
         {
@@ -51,6 +80,7 @@ namespace DesktopApi.Server.WebServer
                 var webSocket = factory.AcceptWebSocketAsync(context.Result);
                 var task = Task.Run(() => Receive(webSocket.Result));
                 _recivingTasks.Add(task);
+                _sockets.Add(webSocket.Result);
                 Console.WriteLine($"Connected new socket. Socket count: {_recivingTasks.Count}");
             }
         }
@@ -58,7 +88,7 @@ namespace DesktopApi.Server.WebServer
         private async void ProcessRequest(WebSocket webSocket, string jsonString)
         {
             var request = JsonConvert.DeserializeObject<Request>(jsonString);
-            var response = _router.RouteApiMethod(request);
+            var response = _router.RouteApiMethod(request, webSocket.GetHashCode());
             var socketResponse = new SocketResponse
             {
                 Controller = request.Controller,
