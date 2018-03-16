@@ -1,17 +1,35 @@
 ﻿using System.IO;
+using DesktopApi.Crawler;
 
 namespace DesktopApi.Data.Model
 {
     public class Elem
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Path { get; set; } = string.Empty;
+        public int Id { get; }
+        public string Name { get; }
+        public string Path { get; }
         public string Icon { get; set; } = string.Empty;
-        public string Category { get; set; } = string.Empty;
-        public PathType Type { get; set; }
+        public string Category { get; set; }
+        public PathType Type { get; }
         public uint UseCount { get; set; } = 0;
-        public bool IsFavourite { get; set; }
+        public bool IsFavourite { get; set; } = false;
+
+        public Elem(string path)
+        {
+            Path = path;
+            Id = path.GetHashCode();
+            Name = System.IO.Path.GetFileNameWithoutExtension(path);
+            Type = GetPathType(path);
+            Category = CategoryManager.GetFileCategory(path);
+        }
+
+        private PathType GetPathType(string path)
+        {
+            return File.GetAttributes(path)
+                .HasFlag(FileAttributes.Directory)
+                ? PathType.Directory
+                : PathType.File;
+        }
 
         public bool Exist()
         {
@@ -22,12 +40,12 @@ namespace DesktopApi.Data.Model
 
         public override bool Equals(object obj)
         {
-            return obj is Elem elem && this.Path.Equals(elem.Path);
+            return obj is Elem elem && Path.Equals(elem.Path);
         }
 
         public override int GetHashCode()
         {
-            return this.Path.GetHashCode();
+            return Path.GetHashCode();
         }
     }
 }

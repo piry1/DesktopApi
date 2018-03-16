@@ -19,7 +19,7 @@ namespace DesktopApi.Crawler
         }
 
         internal void StartMonitoring()
-        {   
+        {
             foreach (var path in _paths)
             {
                 var fsw = new FileSystemWatcher(path)
@@ -46,24 +46,18 @@ namespace DesktopApi.Crawler
 
         private void Fsw_Renamed(object sender, RenamedEventArgs e)
         {
-            var pem = new PathElemManager();
-            var pe = pem.GetPathElem(e.FullPath);
             var elem = _dataStorage.Elems.First(x => x.Path == e.OldFullPath);
             _dataStorage.Elems.Remove(elem);
-            pe.Id = _dataStorage.Elems.Count;
-            _dataStorage.Elems.Add(pe);
+            _dataStorage.Elems.Add(new Elem(e.FullPath));
             Console.WriteLine($"rename: {e.OldName} => {e.Name}");
             _dataStorage.Serialize();
             SetChanged();
         }
 
         private void Fsw_Created(object sender, FileSystemEventArgs e)
-        {
-            var pem = new PathElemManager();
-            var pe = pem.GetPathElem(e.FullPath);
-            pe.Id = _dataStorage.Elems.Count;
-            _dataStorage.Elems.Add(pe);
-            Console.WriteLine("add: " + pe.Name);
+        { 
+            _dataStorage.Elems.Add(new Elem(e.FullPath));
+            Console.WriteLine("add: " + e.Name);
             _dataStorage.Serialize();
             SetChanged();
         }

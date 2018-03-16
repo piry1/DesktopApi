@@ -36,8 +36,12 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="OSIcon, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2d4a153a84ea7847, processorArchitecture=MSIL">
+      <HintPath>..\packages\OSIcon.3.0.0.0\lib\OSIcon.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +53,7 @@
     <Compile Include="Crawler\CategoryManager.cs" />
     <Compile Include="Crawler\DesktopCrawler.cs" />
     <Compile Include="Crawler\DirectoryMonitor.cs" />
+    <Compile Include="Crawler\IconManager.cs" />
     <Compile Include="Crawler\PathElemManager.cs" />
     <Compile Include="Data\Model\FlatFileDataStorage.cs" />
     <Compile Include="Data\Model\Elem.cs" />
