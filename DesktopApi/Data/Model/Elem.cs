@@ -8,7 +8,7 @@ namespace DesktopApi.Data.Model
         public int Id { get; }
         public string Name { get; }
         public string Path { get; }
-        public string Icon { get; set; } = string.Empty;
+        public string Icon { get; }
         public string Category { get; set; }
         public PathType Type { get; }
         public uint UseCount { get; set; } = 0;
@@ -21,6 +21,7 @@ namespace DesktopApi.Data.Model
             Name = System.IO.Path.GetFileNameWithoutExtension(path);
             Type = GetPathType(path);
             Category = CategoryManager.GetFileCategory(path);
+            Icon = IconManager.GetIcon(Type, path);
         }
 
         private PathType GetPathType(string path)

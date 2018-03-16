@@ -1,12 +1,38 @@
 ﻿using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using DesktopApi.Data.Model;
 using OSIcon;
 
 namespace DesktopApi.Crawler
 {
-    internal class IconManager
+    internal static class IconManager
     {
-        private Bitmap GetIcon(PathType type, string path)
+        private const string IconsDirPath = @"Icons/";
+
+        static IconManager()
+        {
+            if (!Directory.Exists(IconsDirPath))
+                Directory.CreateDirectory(IconsDirPath);
+        }
+
+        public static string GetIcon(PathType type, string path)
+        {
+            string iconPath = IconsDirPath + path.GetHashCode() + ".png";
+            Bitmap bitmap = null;
+            int tryouts = 0;
+
+            while (bitmap == null && tryouts < 100)
+            {
+                bitmap = ExtractIcon(type, path);
+                tryouts++;
+            }
+
+            bitmap?.Save(iconPath, ImageFormat.Png);
+            return Path.GetFullPath(iconPath);
+        }
+
+        private static Bitmap ExtractIcon(PathType type, string path)
         {
             var ii = type == PathType.File
                 ? IconReader.GetFileIcon(path, IconSize.Jumbo)

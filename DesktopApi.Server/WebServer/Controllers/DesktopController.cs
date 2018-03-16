@@ -8,17 +8,13 @@ namespace DesktopApi.Server.WebServer.Controllers
     {
         public HttpResponse Get()
         {
-            var desktop = Desktop.Data.Elems.ToList();
-            desktop.ForEach(x =>
-                x.Icon = $"{DesktopServer.Url}icon/get/{x.Id}");
+            var desktop = Desktop.Data.Elems.ToList();         
             return HttpResponse.ReturnJson(desktop);
         }
 
         public HttpResponse Get(string c)
         {
-            var desktop = Desktop.Data.Elems.Where(x => x.Category == c).ToList();
-            desktop.ForEach(x =>
-                x.Icon = $"{DesktopServer.Url}icon/get/{x.Id}");
+            var desktop = Desktop.Data.Elems.Where(x => x.Category == c).ToList();        
             return HttpResponse.ReturnJson(desktop);
         }
 
