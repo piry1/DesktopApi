@@ -1,17 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.IO;
 
 namespace DesktopApi.Data.Model
 {
-    public class FlatFileDataStorage<T>
+    public class FlatFileDataStorage<T> where T : new()
     {
         private const string FileDir = @"DataStorages/";
         private readonly string _fileName;
 
-        public ObservableCollection<T> Elems { get; set; }
+        public T Elems { get; set; }
 
         public FlatFileDataStorage(string fileName)
         {
@@ -22,18 +20,11 @@ namespace DesktopApi.Data.Model
 
             if (!FileExist())
             {
-                Elems = new ObservableCollection<T>();
+                Elems = new T();
                 Serialize();
             }
             else
-                Deserialize();
-
-            Elems.CollectionChanged += HandleElemsChange;
-        }
-
-        private void HandleElemsChange(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            Serialize();
+                Deserialize();        
         }
 
         public void Serialize()
@@ -44,7 +35,7 @@ namespace DesktopApi.Data.Model
 
         public void Deserialize()
         {
-            Elems = JsonConvert.DeserializeObject<ObservableCollection<T>>(File.ReadAllText(FileDir + _fileName));
+            Elems = JsonConvert.DeserializeObject<T>(File.ReadAllText(FileDir + _fileName));
         }
 
         private bool FileExist()

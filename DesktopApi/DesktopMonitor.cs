@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DesktopApi.Crawler;
 using DesktopApi.Data.Model;
 
@@ -9,7 +10,7 @@ namespace DesktopApi
         /// <summary>
         /// List of elements that are displayed on desktop
         /// </summary>
-        public FlatFileDataStorage<Elem> Data { get; } = new FlatFileDataStorage<Elem>("desktop.json");
+        public FlatFileDataStorage<List<Elem>> Data { get; } = new FlatFileDataStorage<List<Elem>>("desktop.json");
 
         private readonly DesktopCrawler _crawler = new DesktopCrawler();
         private readonly string[] _paths =

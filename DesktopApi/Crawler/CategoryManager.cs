@@ -7,8 +7,8 @@ namespace DesktopApi.Crawler
 {
     internal class CategoryManager
     {
-        private readonly FlatFileDataStorage<KeyValuePair<string, string>> _categories =
-            new FlatFileDataStorage<KeyValuePair<string, string>>("categories.json");
+        private readonly FlatFileDataStorage<Dictionary<string, string>> _categories =
+            new FlatFileDataStorage<Dictionary<string, string>>("categories.json");
 
         private const string NonCategoryNameKey = "none";
         private const string DirectoryKey = "directory";
@@ -36,7 +36,8 @@ namespace DesktopApi.Crawler
             string[] values = { "application", "document", "music", "image", "directory", "none" };
 
             for (int i = 0; i < keys.Length; ++i)
-                _categories.Elems.Add(new KeyValuePair<string, string>(keys[i], values[valuesIndex[i]]));
+                _categories.Elems.Add(keys[i], values[valuesIndex[i]]);
+            _categories.Serialize();
         }
     }
 }

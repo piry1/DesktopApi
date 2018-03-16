@@ -10,9 +10,9 @@ namespace DesktopApi.Crawler
     {
         private readonly string[] _paths;
         private static readonly Dictionary<string, bool> Changed = new Dictionary<string, bool>();
-        private readonly FlatFileDataStorage<Elem> _dataStorage;
+        private readonly FlatFileDataStorage<List<Elem>> _dataStorage;
 
-        internal DirectoryMonitor(FlatFileDataStorage<Elem> dataStorage, IEnumerable<string> paths)
+        internal DirectoryMonitor(FlatFileDataStorage<List<Elem>> dataStorage, IEnumerable<string> paths)
         {
             _dataStorage = dataStorage;
             _paths = paths.ToArray();
@@ -40,7 +40,7 @@ namespace DesktopApi.Crawler
             var elem = _dataStorage.Elems.First(x => x.Path == e.FullPath);
             _dataStorage.Elems.Remove(elem);
             Console.WriteLine("remove: " + elem.Name);
-
+            _dataStorage.Serialize();
             SetChanged();
         }
 
@@ -53,6 +53,7 @@ namespace DesktopApi.Crawler
             pe.Id = _dataStorage.Elems.Count;
             _dataStorage.Elems.Add(pe);
             Console.WriteLine($"rename: {e.OldName} => {e.Name}");
+            _dataStorage.Serialize();
             SetChanged();
         }
 
@@ -63,7 +64,7 @@ namespace DesktopApi.Crawler
             pe.Id = _dataStorage.Elems.Count;
             _dataStorage.Elems.Add(pe);
             Console.WriteLine("add: " + pe.Name);
-
+            _dataStorage.Serialize();
             SetChanged();
         }
 
