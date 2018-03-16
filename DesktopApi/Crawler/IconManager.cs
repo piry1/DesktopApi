@@ -32,6 +32,7 @@ namespace DesktopApi.Crawler
             }
 
             bitmap?.Save(iconPath, ImageFormat.Png);
+            bitmap?.Dispose();
             return Path.GetFullPath(iconPath);
         }
 
