@@ -1,10 +1,10 @@
-#app, #bg, .fireworks, .bg{
+#app, #bg, .fireworks, .bg {
     position: absolute;
     width: 100vw;
     height: 100vh;
 }
 
-.icon-div{
+.icon-div {
     padding: 5px;
     max-width: 100px;
     background: transparent;
@@ -14,32 +14,39 @@
     margin-bottom: 25px;
 }
 
+.btn-category {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
 .icon-div:hover,
-.icon-div.active{
+.icon-div.active {
     /* background: rgba(0,0, 0, .2); */
     background-color: rgba(204, 238, 187, 0.3);
-	border-color: #9B8;
+    border-color: #9B8;
 }
 
-.icon-div.active:hover{
-    /* background: rgba(0,0, 0, .3); */
-    background-color: rgba(204, 238, 187, 0.3);
-	border-color: #9B8;
-}
+    .icon-div.active:hover {
+        /* background: rgba(0,0, 0, .3); */
+        background-color: rgba(204, 238, 187, 0.3);
+        border-color: #9B8;
+    }
 
 
-.icon-div > span{
-    width:100px;
-    overflow:hidden;
-    height:25px;
-    line-height:25px;
+.icon-div > span {
+    width: 100px;
+    overflow: hidden;
+    height: 25px;
+    line-height: 25px;
     font-size: 14px;
     margin: 0;
     margin-left: -5px;
     text-align: center;
 }
 
-.con-menu-btn{
+.con-menu-btn {
     position: absolute;
     top: 0;
     padding: 3px;
@@ -50,27 +57,26 @@
 }
 
 
-#context{
+#context {
     padding: 10px;
     /*margin-left: 100px;
     margin-right: 100px;*/
     padding-left: 100px;
     padding-right: 100px;
-    
     height: 95vh;
     overflow-y: auto;
 }
 
-#context::-webkit-scrollbar {
-    width: 25px;
-    background: rgba(0,0, 0, .2);
-}
+    #context::-webkit-scrollbar {
+        width: 25px;
+        background: rgba(0,0, 0, .2);
+    }
 
-#context::-webkit-scrollbar-thumb {
-      background: rgba(0,0, 0, .5);
-}
+    #context::-webkit-scrollbar-thumb {
+        background: rgba(0,0, 0, .5);
+    }
 
-body{
+body {
     /*background-image: url('../img/bg2.jpg');
     background-size: cover;*/
     background: white;
@@ -83,27 +89,28 @@ body{
     box-sizing: border-box;
     margin: 4px;
 }
+
 span {
     display: inline-block;
-    width:40%;   
-    
+    width: 40%;
 }
 
-.nav-btns{
+.nav-btns {
     padding: 4px;
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-.nav-btns > button{
-    font-weight: 700;
-    text-transform: uppercase;
-}
 
-.btn-default{
+    .nav-btns > button {
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+.btn-default {
     background: transparent;
     border: none;
 }
 
-.btn-auto{
+.btn-auto {
     margin-left: 4px;
 }
 
@@ -111,40 +118,40 @@ span {
 .btn-default.active,
 .btn-default:focus,
 .btn-default:active,
-.btn-default.active:active{
+.btn-default.active:active {
     background: rgba(0,0, 0, .3);
     border: none !important;
     outline: none !important;
 }
 
-.btn-default.active,
-.btn-default.active:hover,
-.btn-default.active:focus,
-.btn-default.active:focus:hover{
-    color: #5cf2f9;
-}
+    /*.btn-default.active,
+    .btn-default.active:hover,
+    .btn-default.active:focus,
+    .btn-default.active:focus:hover {
+        color: #5cf2f9;
+    }*/
 
-.btn-default.active:hover,
-.btn-default.active:focus:hover,
-.btn-default.hover:focus,
-.btn-default.focus:hover {
-    background: rgba(0,0, 0, .4) !important;
-    border: none !important;
-    outline: none !important;
-}
+    .btn-default.active:hover,
+    .btn-default.active:focus:hover,
+    .btn-default.hover:focus,
+    .btn-default.focus:hover {
+        background: rgba(0,0, 0, .4) !important;
+        border: none !important;
+        outline: none !important;
+    }
 
-.btn-default.active:focus,
-.btn-default:focus{
-    border: none !important;
-    outline: none !important;
-    background: rgba(0,0, 0, .3) !important;
-}
+    .btn-default.active:focus,
+    .btn-default:focus {
+        border: none !important;
+        outline: none !important;
+        background: rgba(0,0, 0, .3) !important;
+    }
 
-.desk-btn{
+.desk-btn {
     margin: 7px;
 }
 
-.centerInfo{
+.centerInfo {
     height: 100%;
     width: 100%;
     top: 50%;

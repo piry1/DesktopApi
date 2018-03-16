@@ -4,31 +4,39 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
 
     var startAnimation = "bounceInDown";
     var port = 5000;
-    var ws = new WebSocket("ws://localhost:" + port + "/");
-
+    const url = 'ws://localhost:' + port + '/';
+    var socket;
     var start = true; // start of application
     var activeCategory = "";
-    var desktopId = Math.random();
 
     $scope.show = false;
     $scope.CenterHelpText = "";
 
-    function sendSocketRequest(controller, method, params) {
-        var socketRequest = { Controller: controller, Method: method, Params: params };
-        ws.send(JSON.stringify(socketRequest));
-    }
+    const socketMessageListener = (event) => {
+        var receivedMsg = event.data;
+        var obj = JSON.parse(receivedMsg);
+        $scope.switchControllerResponse(obj);
+    };
 
-    ws.onopen = function () {
-        // get categories
+    const socketOpenListener = (event) => {
+        console.log('Connected');
         sendSocketRequest("categories", "get", []);
     };
 
-    ws.onmessage = function (evt) {
-        var receivedMsg = evt.data;
-        var obj = JSON.parse(receivedMsg);
-        $scope.switchControllerResponse(obj);
-        //  console.log(obj); // TO COMMENT 
+    const socketErrorListener = (event) => {      
+        socket = new WebSocket(url);
+        socket.addEventListener('open', socketOpenListener);
+        socket.addEventListener('message', socketMessageListener);
+        socket.addEventListener('error', socketErrorListener);
+        socket.addEventListener('close', socketErrorListener);
     };
+
+    socketErrorListener();
+
+    function sendSocketRequest(controller, method, params) {
+        var socketRequest = { Controller: controller, Method: method, Params: params };
+        socket.send(JSON.stringify(socketRequest));
+    }
 
     $scope.switchControllerResponse = function (data) {
         switch (data.Controller) {
