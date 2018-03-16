@@ -1,6 +1,6 @@
 ﻿namespace DesktopApi.Server.WebServer
 {
-    public class Request
+    internal class Request
     {
         public string Controller { get; set; }
         public string Method { get; set; }

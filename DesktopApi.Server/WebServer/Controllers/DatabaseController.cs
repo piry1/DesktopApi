@@ -5,12 +5,12 @@ namespace DesktopApi.Server.WebServer.Controllers
 {
     internal class DatabaseController
     {
-        public HttpResponse Drop()
+        public object Drop()
         {
             throw new NotImplementedException();
         }
 
-        public HttpResponse Crawl()
+        public object Crawl()
         {
             throw new NotImplementedException();
         }

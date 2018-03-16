@@ -64,10 +64,6 @@
     <Compile Include="WebServer\Controllers\DatabaseController.cs" />
     <Compile Include="WebServer\Controllers\DesktopController.cs" />
     <Compile Include="WebServer\Controllers\FileController.cs" />
-    <Compile Include="WebServer\Controllers\IconController.cs" />
-    <Compile Include="WebServer\Controllers\PageController.cs" />
-    <Compile Include="WebServer\DesktopServer.cs" />
-    <Compile Include="WebServer\HttpResponse.cs" />
     <Compile Include="WebServer\Request.cs" />
     <Compile Include="WebServer\Router.cs" />
     <Compile Include="WebServer\SocketResponse.cs" />

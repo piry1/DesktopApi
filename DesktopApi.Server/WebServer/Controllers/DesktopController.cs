@@ -6,21 +6,21 @@ namespace DesktopApi.Server.WebServer.Controllers
 {
     internal class DesktopController
     {
-        public HttpResponse Get()
+        public object Get()
         {
             var desktop = Desktop.Data.Elems.ToList();         
-            return HttpResponse.ReturnJson(desktop);
+            return desktop;
         }
 
-        public HttpResponse Get(string c)
+        public object Get(string c)
         {
             var desktop = Desktop.Data.Elems.Where(x => x.Category == c).ToList();        
-            return HttpResponse.ReturnJson(desktop);
+            return desktop;
         }
 
-        public HttpResponse Changed(string key)
+        public object Changed(string key)
         {
-            return HttpResponse.ReturnJson(DirectoryMonitor.GetChanged(key));
+            return DirectoryMonitor.GetChanged(key);
         }
 
     }

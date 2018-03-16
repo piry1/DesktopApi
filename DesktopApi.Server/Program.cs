@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using DesktopApi.Server.WebServer;
 
 namespace DesktopApi.Server
@@ -8,9 +9,9 @@ namespace DesktopApi.Server
         [STAThread]
         private static void Main(string[] args)
         {
-            DesktopServer.StartServer();
             var webSocketServer = new WebSocketServer();
-            webSocketServer.Start();
+            var thread = webSocketServer.Start();
+            thread.Join();
         }
     }
 }

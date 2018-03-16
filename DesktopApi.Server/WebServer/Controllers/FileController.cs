@@ -44,7 +44,7 @@ namespace DesktopApi.Server.WebServer.Controllers
         }
         #endregion
 
-        public HttpResponse Start(int id)
+        public object Start(int id)
         {
             var elem = Desktop.Data.Elems.First(e => e.Id == id);
             try
@@ -53,21 +53,21 @@ namespace DesktopApi.Server.WebServer.Controllers
                 Desktop.Data.Elems[Desktop.Data.Elems.IndexOf(elem)].UseCount++;
                 Desktop.Data.Serialize();
             }
-            catch
+            catch (Exception e)
             {
-                return HttpResponse.ReturnJson("error");
+                Console.WriteLine(e.Message);
             }
-            return HttpResponse.ReturnJson("OK");
+            return null;
         }
 
-        public HttpResponse OpenMenu(int id)
+        public object OpenMenu(int id)
         {
             var path = Desktop.Data.Elems.First(c => c.Id == id).Path;
             FileInfo[] arrFi = new FileInfo[1];
             arrFi[0] = new FileInfo(path);
             CloseMenu();
             new Thread(() => ShowCM(arrFi)).Start();
-            return HttpResponse.ReturnJson("OK");
+            return null;
         }
 
 
@@ -77,17 +77,18 @@ namespace DesktopApi.Server.WebServer.Controllers
             _ctxMnu.ShowContextMenu(f, GetMousePosition());
         }
 
-        public HttpResponse CloseMenu()
+        public object CloseMenu()
         {
             try
             {
                 _ctxMnu.DestroyHandle();
             }
-            catch
+            catch (Exception e)
             {
-                return HttpResponse.ReturnJson("ups");
+                Console.WriteLine(e.Message);
             }
-            return HttpResponse.ReturnJson("OK");
+
+            return null;
         }
     }
 }

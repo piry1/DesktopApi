@@ -5,6 +5,7 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
     var startAnimation = 'bounceInDown';
     var port = 5001;
     var apiUrl = 'http://localhost:' + port + '/';
+    var ws = new WebSocket("ws://localhost:5000/");
     var start = true; // start of application
     var lastRequestUrl = "";
     var desktopId = Math.random();
@@ -13,6 +14,24 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
     $scope.preventBgClick = false; // prevent from runing BackgroundClick method
     $scope.clickInterval = 0;
     $scope.CenterHelpText = "";
+
+
+    ws.onopen = function () {
+        // Web Socket is connected, send data using send()
+        var car = { Controller: "desktop", Method: "get", Params: ["document"] };
+        ws.send(JSON.stringify(car));
+        console.log("message send");
+    };
+
+    ws.onmessage = function (evt) {
+        var receivedMsg = evt.data;
+        var obj = JSON.parse(receivedMsg);
+       // var res = JSON.parse(obj.Response);
+        //console.log(obj.Controller + " " + obj.Method);
+        console.log(obj);
+    };
+
+
 
     // Get all categories names
     $scope.GetCateegories = function() {
@@ -150,15 +169,15 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
     // Start at aplication start and load all data
     $scope.OnStart = function() {
         // get categories
-        $http.get(apiUrl + 'categories/get')
-            .then(function(response) {
-                $scope.categories = response.data;
-                // get first category files
-                $scope.GetCateegory(null, response.data[0]);
-            });
+        //$http.get(apiUrl + 'categories/get')
+        //    .then(function(response) {
+        //        $scope.categories = response.data;
+        //        // get first category files
+        //        $scope.GetCateegory(null, response.data[0]);
+        //    });
 
-        $interval($scope.Changed, 1000); // check changes
-        $interval(function() { $scope.clickInterval++; }, 1); // for double click
+        //$interval($scope.Changed, 1000); // check changes
+        //$interval(function() { $scope.clickInterval++; }, 1); // for double click
     };
 
     $scope.OnStart();

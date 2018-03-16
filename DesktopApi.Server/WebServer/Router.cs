@@ -7,14 +7,20 @@ namespace DesktopApi.Server.WebServer
 {
     internal class Router
     {
+        // ReSharper disable once UnusedMember.Local
+        // ReSharper disable once InconsistentNaming
         private DesktopController desktop = new DesktopController();
-        private IconController icon = new IconController();
+        // ReSharper disable once UnusedMember.Local
+        // ReSharper disable once InconsistentNaming
         private FileController file = new FileController();
+        // ReSharper disable once UnusedMember.Local
+        // ReSharper disable once InconsistentNaming
         private DatabaseController database = new DatabaseController();
-        private PageController page = new PageController();
+        // ReSharper disable once UnusedMember.Local
+        // ReSharper disable once InconsistentNaming
         private CategoriesController categories = new CategoriesController();
 
-        public HttpResponse RouteApiMethod(Uri url)
+        public object RouteApiMethod(Uri url)
         {
             string controllerName = url.Segments[1].Replace("/", "");
             string methodName = url.Segments[2].Replace("/", "");
@@ -22,12 +28,12 @@ namespace DesktopApi.Server.WebServer
             return RouteApiMethod(controllerName, methodName, strParams);
         }
 
-        public HttpResponse RouteApiMethod(Request request)
+        public object RouteApiMethod(Request request)
         {
             return RouteApiMethod(request.Controller, request.Method, request.Params);
         }
 
-        public HttpResponse RouteApiMethod(string controllerName, string methodName, string[] strParams)
+        public object RouteApiMethod(string controllerName, string methodName, string[] strParams)
         {
             MethodInfo method;
             Object param;
@@ -52,12 +58,10 @@ namespace DesktopApi.Server.WebServer
             }
             catch
             {
-                var resp = page.Help();
-                resp.Code = 400;
-                return resp;
+                return null;
             }
 
-            return method?.Invoke(param, @params) as HttpResponse;
+            return method?.Invoke(param, @params);
         }
     }
 }

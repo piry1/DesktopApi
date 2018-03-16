@@ -17,13 +17,17 @@ namespace DesktopApi.Server.WebServer
         private Thread _responseThread;
         private readonly List<Task> _recivingTasks = new List<Task>();
         private readonly Router _router = new Router();
+        private int _port;
 
-        public void Start()
+        public Thread Start(int port = 5000)
         {
-            _serverSocket = new TcpListener(IPAddress.Any, 5000);
+            _port = port;
+            _serverSocket = new TcpListener(IPAddress.Any, _port);
             _serverSocket.Start();
             _responseThread = new Thread(ResponseThread);
             _responseThread.Start();
+            Console.WriteLine($"Websocket server started at {_port}");
+            return _responseThread;
         }
 
         public void Stop()
@@ -31,21 +35,23 @@ namespace DesktopApi.Server.WebServer
             foreach (var task in _recivingTasks)
                 task.Dispose();
             _recivingTasks.Clear();
+            _responseThread.Abort();
         }
 
-        private async void ResponseThread()
+        private void ResponseThread()
         {
             while (true)
             {
                 var tcpClient = _serverSocket.AcceptTcpClient();
                 var stream = tcpClient.GetStream();
                 var factory = new WebSocketServerFactory();
-                var context = await factory.ReadHttpHeaderFromStreamAsync(stream);
-
-                if (!context.IsWebSocketRequest) continue;
-                var webSocket = await factory.AcceptWebSocketAsync(context);
-                var task = Task.Run(() => Receive(webSocket));
+                var context = factory.ReadHttpHeaderFromStreamAsync(stream);
+                context.Wait();
+                if (!context.Result.IsWebSocketRequest) continue;
+                var webSocket = factory.AcceptWebSocketAsync(context.Result);
+                var task = Task.Run(() => Receive(webSocket.Result));
                 _recivingTasks.Add(task);
+                Console.WriteLine($"Connected new socket. Socket count: {_recivingTasks.Count}");
             }
         }
 
@@ -57,7 +63,7 @@ namespace DesktopApi.Server.WebServer
             {
                 Controller = request.Controller,
                 Method = request.Method,
-                Response = Encoding.UTF8.GetString(response.Content)
+                Response = response
             };
 
             await Send(webSocket, JsonConvert.SerializeObject(socketResponse));

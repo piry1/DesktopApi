@@ -8,7 +8,7 @@ namespace DesktopApi.Server.WebServer.Controllers
 {
     public class CategoriesController
     {
-        public HttpResponse Get()
+        public object Get()
         {
             var categories = new List<string>();
             Desktop.Data.Elems.ToList().ForEach(x =>
@@ -18,10 +18,10 @@ namespace DesktopApi.Server.WebServer.Controllers
             });
 
             categories.Sort();
-            return HttpResponse.ReturnJson(categories);
+            return categories;
         }
 
-        public HttpResponse RenameById(int id, string value)
+        public object RenameById(int id, string value)
         {
             try
             {
@@ -33,12 +33,12 @@ namespace DesktopApi.Server.WebServer.Controllers
             }
             catch (Exception e)
             {
-                return HttpResponse.ReturnJson(e);
+                Console.WriteLine(e.Message);
             }
-            return HttpResponse.ReturnJson("OK");
+            return null;
         }
 
-        public HttpResponse Rename(string oldValue, string newValue)
+        public object Rename(string oldValue, string newValue)
         {
             try
             {
@@ -49,9 +49,9 @@ namespace DesktopApi.Server.WebServer.Controllers
             }
             catch (Exception e)
             {
-                return HttpResponse.ReturnJson(e);
+                Console.WriteLine(e.Message);
             }
-            return HttpResponse.ReturnJson("OK");
+            return null;
         }
 
     }

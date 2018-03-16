@@ -1,6 +1,6 @@
 ﻿namespace DesktopApi.Server.WebServer
 {
-    class SocketResponse
+    internal class SocketResponse
     {
         public string Controller { get; set; }
         public string Method { get; set; }
