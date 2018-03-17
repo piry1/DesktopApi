@@ -41,31 +41,42 @@ namespace DesktopApi.Server.WebServer
             _responseThread.Abort();
         }
 
+        private void RemoveClosedSockets()
+        {
+            _sockets.RemoveAll(x => x.State == WebSocketState.CloseReceived || x.State == WebSocketState.Closed);
+            _recivingTasks.RemoveAll(x => x.IsCompleted);          
+        }
+
+
         private async void NotifyAboutChanges(object s, EventArgs e)
         {
+            RemoveClosedSockets();
             var args = e as DesktopChangedEventArgs;
-
             var notification = new SocketResponse
             {
                 Controller = "notification",
                 Method = "changed",
                 Response = true
-            };
-
+            };     
             var message = JsonConvert.SerializeObject(notification);
             foreach (var webSocket in _sockets)
             {
-                if (args != null)
+                try
                 {
-                    if (webSocket.GetHashCode() != args.ChangingEntity)
+                    if (args != null)
+                    {
+                        if (webSocket.GetHashCode() != args.ChangingEntity)
+                            await Send(webSocket, message);
+                    }
+                    else
                         await Send(webSocket, message);
                 }
-                else
-                    await Send(webSocket, message);
-
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
-
 
         private void ResponseThread()
         {
@@ -79,9 +90,10 @@ namespace DesktopApi.Server.WebServer
                 if (!context.Result.IsWebSocketRequest) continue;
                 var webSocket = factory.AcceptWebSocketAsync(context.Result);
                 var task = Task.Run(() => Receive(webSocket.Result));
+                RemoveClosedSockets();
                 _recivingTasks.Add(task);
                 _sockets.Add(webSocket.Result);
-                Console.WriteLine($"Connected new socket. Socket count: {_recivingTasks.Count}");
+                Console.WriteLine($"Connected new socket. Sockets: {_sockets.Count}, Tasks: {_recivingTasks.Count}");
             }
         }
 

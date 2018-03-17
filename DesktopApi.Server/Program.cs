@@ -10,7 +10,11 @@ namespace DesktopApi.Server
         private static void Main(string[] args)
         {
             var webSocketServer = new WebSocketServer();
-            var thread = webSocketServer.Start();
+#if DEBUG
+            var thread = webSocketServer.Start(5000);
+#else
+            var thread = webSocketServer.Start(5001);
+#endif
             thread.Join();
         }
     }

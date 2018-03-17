@@ -23,12 +23,24 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
         sendSocketRequest("categories", "get", []);
     };
 
-    const socketErrorListener = (event) => {      
+    const socketErrorListener = (event) => {
+        // socket.onclose = function () { };
+        if (socket) {
+            socket.removeEventListener('close', socketErrorListener);
+            socket.close();
+        }
         socket = new WebSocket(url);
         socket.addEventListener('open', socketOpenListener);
         socket.addEventListener('message', socketMessageListener);
         socket.addEventListener('error', socketErrorListener);
         socket.addEventListener('close', socketErrorListener);
+    };
+
+    window.onbeforeunload = function (e) {
+        if (socket) {
+            socket.removeEventListener('close', socketErrorListener);
+            socket.close();
+        }
     };
 
     socketErrorListener();
