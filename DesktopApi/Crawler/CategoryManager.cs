@@ -23,10 +23,11 @@ namespace DesktopApi.Crawler
         {
             var attr = File.GetAttributes(path);
             if (attr.HasFlag(FileAttributes.Directory))
-                return "directory";
+                return Categories.Elems[DirectoryKey];
             var ext = Path.GetExtension(path);
-            var category = Categories.Elems.Where(x => x.Key == ext).ToList();
-            return category.Count != 0 ? category.First().Value : "none";
+            return Categories.Elems.ContainsKey(ext)
+                ? Categories.Elems[ext]
+                : Categories.Elems[NonCategoryNameKey];
         }
 
         private static void InitCategories()
