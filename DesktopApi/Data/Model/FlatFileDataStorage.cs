@@ -19,12 +19,9 @@ namespace DesktopApi.Data.Model
             _fileName = fileName;
 
             if (!FileExist())
-            {
-                Elems = new T();
-                Serialize();
-            }
+                Init();
             else
-                Deserialize();        
+                Deserialize();
         }
 
         public void Serialize()
@@ -35,7 +32,16 @@ namespace DesktopApi.Data.Model
 
         public void Deserialize()
         {
-            Elems = JsonConvert.DeserializeObject<T>(File.ReadAllText(FileDir + _fileName));
+            if (FileExist())
+                Elems = JsonConvert.DeserializeObject<T>(File.ReadAllText(FileDir + _fileName));
+            else
+                Init();
+        }
+
+        private void Init()
+        {
+            Elems = new T();
+            Serialize();
         }
 
         private bool FileExist()

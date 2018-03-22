@@ -24,6 +24,7 @@ namespace DesktopApi
         /// </summary>
         public DesktopMonitor()
         {
+            Data.Elems.RemoveAll(x => x.Name == null);
             _crawler.Crwal(Data, _paths);
             var directoryMonitor = new DirectoryMonitor(Data, _paths);
             directoryMonitor.StartMonitoring();

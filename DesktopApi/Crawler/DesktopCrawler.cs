@@ -32,12 +32,13 @@ namespace DesktopApi.Crawler
             var pm = new PathElemManager();
             var elems = pm.GetAllPaths(paths);
 
-            elems.ForEach(x =>
+            foreach (var x in elems)
             {
-                if (File.GetAttributes(x.Path) == FileAttributes.Hidden || dataStorage.Elems.Contains(x)) return;
+                if (File.GetAttributes(x.Path) == FileAttributes.Hidden || dataStorage.Elems.Contains(x) || Path.GetFileName(x.Path) == "desktop.ini") continue;
                 dataStorage.Elems.Add(x);
                 Console.WriteLine("add: " + x.Name);
-            });
+            }
+
             dataStorage.Serialize();
         }
     }

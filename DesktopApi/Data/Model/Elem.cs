@@ -17,6 +17,7 @@ namespace DesktopApi.Data.Model
         public Elem(string path)
         {
             Path = path;
+            if (!Exist()) return;
             Id = path.GetHashCode();
             Name = System.IO.Path.GetFileNameWithoutExtension(path);
             Type = GetPathType(path);
@@ -34,9 +35,7 @@ namespace DesktopApi.Data.Model
 
         public bool Exist()
         {
-            return Type == PathType.Directory
-                ? Directory.Exists(Path)
-                : File.Exists(Path);
+            return File.Exists(Path) || Directory.Exists(Path);
         }
 
         public override bool Equals(object obj)
