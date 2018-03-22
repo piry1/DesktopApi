@@ -18,12 +18,12 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
         $scope.switchControllerResponse(obj);
     };
 
-    const socketOpenListener = (event) => {
+    const socketOpenListener = () => {
         console.log('Connected');
         sendSocketRequest("categories", "get", []);
     };
 
-    const socketErrorListener = (event) => {
+    const socketErrorListener = () => {
         // socket.onclose = function () { };
         if (socket) {
             socket.removeEventListener('close', socketErrorListener);
@@ -36,7 +36,7 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
         socket.addEventListener('close', socketErrorListener);
     };
 
-    window.onbeforeunload = function (e) {
+    window.onbeforeunload = () => {
         if (socket) {
             socket.removeEventListener('close', socketErrorListener);
             socket.close();
@@ -147,9 +147,11 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
     // Open file or directory
     $scope.Start = function ($event, id) {
         $scope.CloseContentMenu();
-        sendSocketRequest("file", "start", [id]);
+        if ($scope.clickInterval < 50)
+            sendSocketRequest("file", "start", [id]);
         $('.icon-div').removeClass("active");
         $($event.currentTarget).addClass("active");
+        $scope.clickInterval = 0;
     };
 
     // show or hide icons
@@ -172,6 +174,8 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
         $scope.CloseContentMenu();
         $('.icon-div').removeClass('active');
     };
+
+    $interval(function () { $scope.clickInterval++; }, 5);
 
     function dropableMenu() {
         $(".category").droppable({
