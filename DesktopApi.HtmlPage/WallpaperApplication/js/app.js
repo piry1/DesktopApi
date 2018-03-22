@@ -146,7 +146,6 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
 
     // Open file or directory
     $scope.Start = function ($event, id) {
-        $scope.CloseContentMenu();
         if ($scope.clickInterval < 50)
             sendSocketRequest("file", "start", [id]);
         $('.icon-div').removeClass("active");
@@ -171,9 +170,16 @@ app.controller("myCtrl", function ($scope, $http, $interval) {
 
     // function that run when background is clicked
     $scope.BackgroundClick = function () {
-        $scope.CloseContentMenu();
+        if (!$scope.preventBgClick) {
+            $scope.CloseContentMenu();
+        }
         $('.icon-div').removeClass('active');
+
     };
+
+    $scope.PreventBgClick = function (p) {
+        $scope.preventBgClick = p;
+    }
 
     $interval(function () { $scope.clickInterval++; }, 5);
 
